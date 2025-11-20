@@ -3,7 +3,7 @@ sys.path.append('../')
 
 from ReMindRag.llms import OpenaiAgent
 from ReMindRag.llms import GeminiAgent
-from ReMindRag.embeddings import HgEmbedding
+from ReMindRag.embeddings import VertexEmbedding #, HgEmbedding
 from ReMindRag.chunking import NaiveChunker
 from ReMindRag import ReMindRag
 from ReMindRag.webui import launch_webui
@@ -32,7 +32,12 @@ gemini_agent = GeminiAgent(
     location="us-central1", 
     model_name="gemini-2.5-flash"
 )
-embedding = HgEmbedding("nomic-ai/nomic-embed-text-v2-moe", model_cache_dir)
+# embedding = HgEmbedding("nomic-ai/nomic-embed-text-v2-moe", model_cache_dir)
+embedding = VertexEmbedding(
+    project_id="finrisk-sandbox", 
+    location="us-central1",        
+    model_name="text-embedding-preview-0409"
+)
 chunker = NaiveChunker("nomic-ai/nomic-embed-text-v2-moe", model_cache_dir, max_token_length=750)
 tokenizer = AutoTokenizer.from_pretrained("nomic-ai/nomic-embed-text-v2-moe", cache_dir = model_cache_dir)
 
