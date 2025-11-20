@@ -119,6 +119,8 @@ def handle_file(logger, agent: AgentBase, chunker: ChunkerBase, file_pth: str, l
     if os.path.isfile(file_pth):
         if file_pth.endswith(".txt"):
             data = handle_txt_file(file_pth, encoding)
+        elif file_pth.endswith(".md") or file_pth.endswith(".markdown"):
+            data = handle_txt_file(file_pth, encoding)
         elif file_pth.endswith(".docx"):
             data = handle_docx_file(file_pth, encoding)
         else:
@@ -140,14 +142,18 @@ def handle_file_folder(logger, agent: AgentBase, chunker: ChunkerBase, folder_pt
     extracted_data = []
     for filename in os.listdir(folder_pth):
         file_path = os.path.join(folder_pth, filename)
+        data = None
         
         if os.path.isfile(file_path):
             if filename.endswith(".txt"):
                 data = handle_txt_file(file_path, encoding)
+            elif filename.endswith(".md") or filename.endswith(".markdown"):
+                data = handle_txt_file(file_path, encoding)
             else:
                 print(f"Unsupported file types: {filename}")
         
-        extracted_data = extracted_data + handle_content(logger, data, agent, chunker, language)
+        if data is not None:
+            extracted_data = extracted_data + handle_content(logger, data, agent, chunker, language)
 
     if not extracted_data:
         print("No data found.")

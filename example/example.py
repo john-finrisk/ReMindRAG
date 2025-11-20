@@ -61,7 +61,7 @@ rag_instance = ReMindRag(
     )
 
 # Step 4: Load Content
-rag_instance.load_file("./example_data.txt",language="zh")
+rag_instance.load_file("./example/ebook.md",language="en")
 
 # Step 5: Ask A Question
 query = "What does a level 20 paladin gain?"
