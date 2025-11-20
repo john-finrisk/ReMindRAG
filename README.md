@@ -17,7 +17,7 @@ Use this command to initialize this Repo's environment.
 ```shell
     conda create -n ReMindRag python==3.13.2
     conda activate ReMindRag
-    pip install -r requirements.txt
+    pip install -r requirements-mac.txt
 ```
 
 ## Quick Start
